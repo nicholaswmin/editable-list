@@ -52,7 +52,10 @@ to change.
 
 ## Usage
 
-Accepts a data-bound object as `data` that looks like this:
+Accepts an object as `data` that looks like this:
+
+> Note that `data` is 2-way data bound. Inline editing of rows will reflect
+the changes to the supplied object and the observers to fire as usual.
 
 ```javascript
  data = {
