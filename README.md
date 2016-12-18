@@ -35,10 +35,16 @@ Uses just this markup:
 
   - Based on Polymer 2.0
   - Piggybacks on `dom-repeat`. Doesn't reinvent the wheel.
-  - Use whatever markup you want for your items/headers.
-  - Add your own buttons using `slot=actions`
+  - Headers/Rows can span 1,2,3,4,5 or whatever number of columns you want.
+  Just use the `iron-flex-layout` classes.
+  - Add your own row-specific buttons using `slot="row-actions"`
   - Style your item/actions markup externally.
   - Bind your markup to external methods
+
+Note that the headers & rows are appended to the Light DOM therefore you can
+bind to methods outside of `editable-list`. The same applies for styling.
+
+The Shadow-DOM encapsulation-principle applies as usual for everything else.
 
 ## The not-so-good stuff
 
