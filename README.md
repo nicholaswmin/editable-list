@@ -10,11 +10,12 @@ Uses just this markup:
 
 ```html
 <editable-list data="{{data}}">
-  <!-- Headers -->
+  <!-- Headers Markup -->
   <div slot="header" class="flex-2 field-container">Country</div>
   <div slot="header" class="flex-2 field-container">City</div>
   <div slot="header" class="flex field-container">Verified</div>
-  <!-- Repeated Contents, usage is identical to `dom-repeat`-->
+  <!-- /Header markup-->
+  <!-- Row Markup, usage is identical to `dom-repeat`-->
   <template>
     <editable-item class="layout horizontal center list-item" item="{{item}}">
       <paper-input class="flex-2" value="{{item.country}}" no-label-float></paper-input>
@@ -25,8 +26,8 @@ Uses just this markup:
         <paper-icon-button icon="attachment"></paper-icon-button>
       </span>
     </editable-item>
-    <!-- /End of Repeated Contents-->
   </template>
+  <!-- /Row markup-->
 </editable-list>
 ```
 
