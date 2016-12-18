@@ -1,23 +1,23 @@
 # editable-list
 
-> DO NOT use this in production code - this is an experiment
+> DO NOT use this in production code - this is a personal experiment
 
-![img](http://i.imgur.com/zbPVJMb.png)
+![img](http://i.imgur.com/d7Sxn9P.png)
 
 Uses just this markup:
 
 ```html
 <editable-list data="{{data}}">
   <!-- Headers -->
-  <div slot="header" class="flex-2 field-container">2-col wide header</div>
-  <div slot="header" class="flex-2 field-container">2-col wide header</div>
-  <div slot="header" class="flex field-container">1-col wide header</div>
+  <div slot="header" class="flex-2 field-container">Country</div>
+  <div slot="header" class="flex-2 field-container">City</div>
+  <div slot="header" class="flex field-container">Verified</div>
   <!-- Repeated Contents, usage is identical to `dom-repeat`-->
   <template>
     <editable-item class="layout horizontal center list-item" item="{{item}}">
-      <paper-input class="flex-2" value="{{item.prop1}}" no-label-float></paper-input>
-      <paper-input class="flex-2" value="{{item.prop2}}" no-label-float></paper-input>
-      <paper-checkbox class="flex field-container" value="{{item.prop3}}"></paper-checkbox>
+      <paper-input class="flex-2" value="{{item.country}}" no-label-float></paper-input>
+      <paper-input class="flex-2" value="{{item.city}}" no-label-float></paper-input>
+      <paper-checkbox class="flex field-container" value="{{item.verified}}"></paper-checkbox>
       <!-- Add buttons on your row -->
       <span slot="row-actions">
         <paper-icon-button icon="attachment"></paper-icon-button>
@@ -54,26 +54,29 @@ Accepts a data-bound object as `data` that looks like this:
 
 ```javascript
  data = {
+   // Rows are added here.
    contents: [
       {
         id: 1, // Must be a unique identifier
-        prop1: "Foo",
-        prop2: 12,
-        prop3: true
+        country: "United Kingdom",
+        city: "London",
+        verified: true
         // .. rest of your props
       },
       {
         id: 2
-        prop1: "Baz",
-        prop2: 28,
-        prop3: false
-        // .. rest of your props
+        prop1: "China",
+        prop2: "Beijing",
+        verified: false
       }
    ],
-   deletedRows: [
-    // accumulates ids of deleted rows. Rows that weren't initially provided
-    // in `contents` won't be pushed here.
-   ]
+   /*
+    * Deleted rows are accumulated here.
+    *
+    * @NOTE Rows that weren't initially provided
+    * in `contents` won't be pushed here.
+    */
+   deletedRows: []
  }
 ```
 
