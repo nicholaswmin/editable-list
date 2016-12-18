@@ -9,25 +9,35 @@
 Uses just this markup:
 
 ```html
+<style is="custom-style">
+  .field-container {
+    padding: 0 0.5em;
+  }
+
+  .attachement-btn {
+    color: #FF9800;
+  }
+</style>
+
 <editable-list data="{{data}}">
-  <!-- Headers Markup -->
+  <!-- Headers -->
   <div slot="header" class="flex-2 field-container">Country</div>
   <div slot="header" class="flex-2 field-container">City</div>
   <div slot="header" class="flex field-container">Verified</div>
-  <!-- /Header markup-->
-  <!-- Row Markup, usage is identical to `dom-repeat`-->
+  <!-- /Headers-->
+  <!-- Rows Markup, usage is identical to `dom-repeat`-->
   <template>
     <editable-item class="layout horizontal center list-item" item="{{item}}">
       <paper-input class="flex-2" value="{{item.country}}" no-label-float></paper-input>
       <paper-input class="flex-2" value="{{item.city}}" no-label-float></paper-input>
       <paper-checkbox class="flex field-container" value="{{item.verified}}"></paper-checkbox>
-      <!-- Add buttons on your row -->
+      <!-- Add buttons on your row. You can bind to methods as usual  -->
       <span slot="row-actions">
         <paper-icon-button icon="attachment"></paper-icon-button>
       </span>
     </editable-item>
   </template>
-  <!-- /Row markup-->
+  <!-- /Rows markup-->
 </editable-list>
 ```
 
@@ -62,7 +72,7 @@ to change.
 Accepts an object as `data` that looks like this:
 
 > Note that the supplied `data` is 2-way data bound. Inline editing of rows
-will reflect the changes to the supplied object and the observers firings will
+will reflect the changes to the supplied object and the observer firings will
 propagate as usual.
 
 ```javascript
