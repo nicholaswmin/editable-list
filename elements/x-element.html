@@ -1,0 +1,74 @@
+<dom-module id="x-element">
+  <template>
+    <style is="custom-style" include="iron-flex iron-flex-alignment iron-flex-factors">
+      :host {
+        height: calc(100% - 24px);
+      }
+
+      .field-container {
+        padding: 0 0.5em;
+      }
+
+      .attachement-btn {
+        color: #FF9800;
+      }
+    </style>
+    <editable-list data="{{data}}">
+      <div slot="header" class="flex-2 field-container">Number</div>
+      <div slot="header" class="flex-2 field-container">City</div>
+      <div slot="header" class="flex field-container">Copy</div>
+      <template>
+        <editable-item class="layout horizontal center list-item" item="{{item}}">
+          <paper-input class="flex-2 field-container" value="{{item.number}}" no-label-float></paper-input>
+          <paper-input class="flex-2 field-container" value="{{item.city}}" no-label-float></paper-input>
+          <paper-checkbox class="flex field-container" value="{{item.copy}}"></paper-checkbox>
+          <span slot="row-actions">
+            <paper-icon-button class="attachement-btn" icon="attachment" on-click="auxButtonPressed"></paper-icon-button>
+          </span>
+        </editable-item>
+      </template>
+    </editable-list>
+  </template>
+
+  <script>
+    // Extend Polymer.Element base class
+    class XElement extends Polymer.Element {
+
+      static get is() {
+        return "x-element"
+      }
+
+      static get config() {
+        return {
+          properties: {
+            data: {
+              type: Object,
+              value: {
+                contents: [],
+                deletedRows: []
+              }
+            }
+          },
+          observers: [
+            "_dataChanged(data.contents.*)"
+          ]
+        }
+      }
+
+      connectedCallback() {
+        window.xElement = this;
+        super.connectedCallback();
+      }
+
+      _dataChanged(change) {
+        console.info(`Observer fired in ${this.nodeName.toLowerCase()}`, change)
+      }
+
+      auxButtonPressed(e) {
+        alert(`Aux button click intercepted in ${this.nodeName.toLowerCase()}`)
+      }
+    }
+    // Register custom element definition using standard platform API
+    customElements.define(XElement.is, XElement);
+  </script>
+</dom-module>

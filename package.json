@@ -1,0 +1,29 @@
+{
+  "name": "editable-list",
+  "version": "0.0.1",
+  "description": "Light-DOM enabled editable list in Polymer 2.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "python -m SimpleHTTPServer 3000 > /dev/null 2>&1",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicholaswmin/editable-list.git"
+  },
+  "keywords": [
+    "list",
+    "editable-list",
+    "polymer",
+    "2.0"
+  ],
+  "author": "@nicholaswmin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nicholaswmin/editable-list/issues"
+  },
+  "homepage": "https://github.com/nicholaswmin/editable-list#readme",
+  "devDependencies": {
+    "browsersync": "0.0.1-security"
+  }
+}
