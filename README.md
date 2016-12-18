@@ -1,5 +1,9 @@
 # editable-list
 
+> DO NOT use this in production code - this is an experiment
+
+![img](http://i.imgur.com/zbPVJMb.png)
+
 Uses just this markup:
 
 ```html
