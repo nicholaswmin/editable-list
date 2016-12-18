@@ -19,9 +19,9 @@
       <div slot="header" class="flex field-container">Verified</div>
       <template>
         <editable-item class="layout horizontal center list-item" item="{{item}}">
-          <paper-input class="flex-2 field-container" value="{{item.number}}" no-label-float></paper-input>
+          <paper-input class="flex-2 field-container" value="{{item.country}}" no-label-float></paper-input>
           <paper-input class="flex-2 field-container" value="{{item.city}}" no-label-float></paper-input>
-          <paper-checkbox class="flex field-container" value="{{item.copy}}"></paper-checkbox>
+          <paper-checkbox class="flex field-container" checked="{{item.verified}}"></paper-checkbox>
           <span slot="row-actions">
             <paper-icon-button class="attachement-btn" icon="attachment" on-click="auxButtonPressed"></paper-icon-button>
           </span>
@@ -54,9 +54,7 @@
           ]
         }
       }
-
       connectedCallback() {
-        window.xElement = this;
         super.connectedCallback();
       }
 
