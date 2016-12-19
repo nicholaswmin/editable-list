@@ -34,9 +34,9 @@ The following markup creates the list displayed above.
   <div slot="header" class="flex-2 field-container">City</div>
   <div slot="header" class="flex field-container">Verified</div>
   <!-- /Headers-->
-  <!-- Rows Markup, usage is identical to `dom-repeat`-->
+  <!-- Row Markup, usage is identical to `dom-repeat`-->
   <template>
-    <editable-item class="layout horizontal center list-item" item="{{item}}">
+    <editable-item class="layout horizontal center list-item" item="[[item]]">
       <paper-input class="flex-2" value="{{item.country}}" no-label-float></paper-input>
       <paper-input class="flex-2" value="{{item.city}}" no-label-float></paper-input>
       <paper-checkbox class="flex" value="{{item.verified}}"></paper-checkbox>
@@ -44,7 +44,7 @@ The following markup creates the list displayed above.
       <paper-icon-button slot="row-actions" icon="attachment"></paper-icon-button>
     </editable-item>
   </template>
-  <!-- /Rows markup-->
+  <!-- /Row markup-->
 </editable-list>
 ```
 
