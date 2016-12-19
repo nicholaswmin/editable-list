@@ -2,18 +2,27 @@
 
 > A Light-DOM enabled editable list in [Polymer 2.0][1]
 
-> DO NOT use this in production code - this is a personal experiment
+> Please refrain from using this in production code.
+> It's built on top of Polymer 2.0 which doesn't have a stable API yet as
+it's still in development. Futhermore there's no unit tests or real documentation
 
-![img](http://i.imgur.com/d7Sxn9P.png)
+<div style="text-align:center"><img src="http://i.imgur.com/p1fm4eE.png"/></div>
 
-Uses just this markup:
+### The markup
+
+The intention was to abstract away the repeater (`dom-repeat`), the add/delete
+buttons and some list-related general CSS whilst still allowing custom markup,
+binding to external methods & styling of the custom markup (via the Light-DOM).
+
+While there are some samples floating around that make use of the Templatizer
+to achieve the above, there's no samples that use the `dom-repeat` element
+already provided by Polymer therefore they usually re-implement a lot of the
+functionality already present in `dom-repeat`.
+
+The following markup creates the list displayed above.
 
 ```html
 <style is="custom-style">
-  .field-container {
-    padding: 0 0.5em;
-  }
-
   .attachement-btn {
     color: #FF9800;
   }
@@ -30,9 +39,9 @@ Uses just this markup:
     <editable-item class="layout horizontal center list-item" item="{{item}}">
       <paper-input class="flex-2" value="{{item.country}}" no-label-float></paper-input>
       <paper-input class="flex-2" value="{{item.city}}" no-label-float></paper-input>
-      <paper-checkbox class="flex field-container" value="{{item.verified}}"></paper-checkbox>
-      <!-- Add buttons on your row. You can bind to methods as usual  -->
+      <paper-checkbox class="flex" value="{{item.verified}}"></paper-checkbox>
       <span slot="row-actions">
+        <!-- Add buttons on your row. You can bind to methods as usual  -->
         <paper-icon-button icon="attachment"></paper-icon-button>
       </span>
     </editable-item>
@@ -59,7 +68,7 @@ The Shadow-DOM encapsulation-principle applies as usual for everything else.
 
 ## The not-so-good stuff
 
-- It's based on Polymer 2.0 which is still experimental and it's API is subject
+- It's based on Polymer 2.0 which is still in preview and it's API is subject
 to change.
 - There's no docs or tests.
 
@@ -103,13 +112,20 @@ propagate as usual.
  }
 ```
 
-## Why?
+## Internals
 
-I needed a reusable editable list which allows me to declare stuff directly
-in it's Light DOM without using the `Templatizer`.
+The `template` of a row, see the `editable-item` parent is picked up and
+it is appended as a child of a `dom-repeat` inside the element.
 
-The `dom-repeat` element that comes with Polymer is already well-thought out
-and this is what is used internally to repeat the declared Light DOM.
+The `dom-repeat` is then re-appended in the element's Light DOM, thus allowing
+direct styling and method binding from within the element that actually contains
+the `editable-list`.
+
+Technically speaking you could fork this element and use an `iron-list` in the
+place of the `dom-repeat` - which is more efficient than the dom-repeat. At the
+time of building this `iron-list 2.0` wasn't quite ready yet and there were
+some problems with event handling (which is needed when deleting rows).
+
 
 ## Docs? Tests? - where are they?
 
