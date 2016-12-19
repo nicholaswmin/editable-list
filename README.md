@@ -114,8 +114,18 @@ propagate as usual.
 
 ## Internals
 
-The `template` of a row, see the `editable-item` parent is picked up and
-it is appended as a child of a `dom-repeat` inside the element.
+The `template` of a row, see the `editable-item` parent, is picked up and
+appended as the child of a `dom-repeat` inside the element.
+
+This results internally to this:
+
+```html
+<dom-repeat items="{{data.contents}}">
+  <template>
+    <!-- Row markup defined in the Light DOM -->
+  </template>
+</dom-repeat>
+```
 
 The `dom-repeat` is then re-appended in the element's Light DOM, thus allowing
 direct styling and method binding from within the element that actually contains
