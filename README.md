@@ -41,7 +41,7 @@ The following markup creates the list displayed above.
       <paper-input class="flex-2" value="{{item.city}}" no-label-float></paper-input>
       <paper-checkbox class="flex" value="{{item.verified}}"></paper-checkbox>
       <!-- Add row-specific actions. You can bind to methods as usual -->
-      <paper-icon-button slot="row-actions" icon="attachment"></paper-icon-button>
+      <paper-icon-button slot="actions" icon="attachment"></paper-icon-button>
     </editable-item>
   </template>
   <!-- /Row markup-->

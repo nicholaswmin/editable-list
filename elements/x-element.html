@@ -22,9 +22,7 @@
           <paper-input class="flex-2 field-container" value="{{item.country}}" no-label-float></paper-input>
           <paper-input class="flex-2 field-container" value="{{item.city}}" no-label-float></paper-input>
           <paper-checkbox class="flex field-container" checked="{{item.verified}}"></paper-checkbox>
-          <span slot="row-actions">
-            <paper-icon-button class="attachement-btn" icon="attachment" on-click="auxButtonPressed"></paper-icon-button>
-          </span>
+          <paper-icon-button slot="actions" class="attachement-btn" icon="attachment" on-click="auxButtonPressed"></paper-icon-button>
         </editable-item>
       </template>
     </editable-list>
