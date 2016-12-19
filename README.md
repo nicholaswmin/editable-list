@@ -40,10 +40,8 @@ The following markup creates the list displayed above.
       <paper-input class="flex-2" value="{{item.country}}" no-label-float></paper-input>
       <paper-input class="flex-2" value="{{item.city}}" no-label-float></paper-input>
       <paper-checkbox class="flex" value="{{item.verified}}"></paper-checkbox>
-      <span slot="row-actions">
-        <!-- Add buttons on your row. You can bind to methods as usual  -->
-        <paper-icon-button icon="attachment"></paper-icon-button>
-      </span>
+      <!-- Add row-specific actions. You can bind to methods as usual -->
+      <paper-icon-button slot="row-actions" icon="attachment"></paper-icon-button>
     </editable-item>
   </template>
   <!-- /Rows markup-->
@@ -127,7 +125,8 @@ This results internally to this:
 </dom-repeat>
 ```
 
-The `dom-repeat` is then re-appended in the element's Light DOM, thus allowing
+The completed `dom-repeat` structure is then appended in the element's Light DOM,
+thus allowing
 direct styling and method binding from within the element that actually contains
 the `editable-list`.
 
