@@ -30,15 +30,15 @@ The following markup creates the list displayed above.
 
 <editable-list data="{{data}}">
   <!-- Headers -->
-  <div slot="header" class="flex-2 field-container">Country</div>
-  <div slot="header" class="flex-2 field-container">City</div>
-  <div slot="header" class="flex field-container">Verified</div>
+  <div slot="header" class="flex-2">Country</div>
+  <div slot="header" class="flex-2">City</div>
+  <div slot="header" class="flex">Verified</div>
   <!-- /Headers-->
   <!-- Row Markup, usage is identical to `dom-repeat`-->
   <template>
     <editable-item class="layout horizontal center list-item" item="[[item]]">
-      <paper-input class="flex-2" value="{{item.country}}" no-label-float></paper-input>
-      <paper-input class="flex-2" value="{{item.city}}" no-label-float></paper-input>
+      <paper-input class="flex-2" value="{{item.country}}"></paper-input>
+      <paper-input class="flex-2" value="{{item.city}}"></paper-input>
       <paper-checkbox class="flex" value="{{item.verified}}"></paper-checkbox>
       <!-- Add row-specific actions. You can bind to methods as usual -->
       <paper-icon-button slot="actions" icon="attachment"></paper-icon-button>
