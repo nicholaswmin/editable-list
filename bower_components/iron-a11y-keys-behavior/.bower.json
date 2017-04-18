@@ -18,15 +18,15 @@
   "main": "iron-a11y-keys-behavior.html",
   "license": "http://polymer.github.io/LICENSE.txt",
   "dependencies": {
-    "polymer": "Polymer/polymer#2.0-preview"
+    "polymer": "Polymer/polymer#^2.0.0-rc.1"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#2.0-preview",
     "iron-component-page": "PolymerElements/iron-component-page#2.0-preview",
     "iron-test-helpers": "PolymerElements/iron-test-helpers#2.0-preview",
-    "test-fixture": "PolymerElements/test-fixture#custom-elements-v1",
-    "web-component-tester": "^4.0.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#v1"
+    "test-fixture": "PolymerElements/test-fixture#^3.0.0-rc.1",
+    "web-component-tester": "Polymer/web-component-tester#^6.0.0-prerelease.6",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0-rc.1"
   },
   "variants": {
     "1.x": {
@@ -43,18 +43,15 @@
       }
     }
   },
-  "resolutions": {
-    "test-fixture": "custom-elements-v1"
-  },
   "ignore": [],
-  "homepage": "https://github.com/polymerelements/iron-a11y-keys-behavior",
-  "_release": "e01c6f12bb",
+  "homepage": "https://github.com/PolymerElements/iron-a11y-keys-behavior",
+  "_release": "a65945bd0f",
   "_resolution": {
     "type": "branch",
     "branch": "2.0-preview",
-    "commit": "e01c6f12bbcc3dfcfd00bf0fbed0849c7aec64dd"
+    "commit": "a65945bd0fb76638938deedd845e8bb669e4e2d2"
   },
-  "_source": "git://github.com/polymerelements/iron-a11y-keys-behavior.git",
+  "_source": "https://github.com/PolymerElements/iron-a11y-keys-behavior.git",
   "_target": "2.0-preview",
-  "_originalSource": "polymerelements/iron-a11y-keys-behavior"
+  "_originalSource": "PolymerElements/iron-a11y-keys-behavior"
 }

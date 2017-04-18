@@ -27,38 +27,42 @@
     "iron-behaviors": "PolymerElements/iron-behaviors#2.0-preview",
     "iron-checked-element-behavior": "PolymerElements/iron-checked-element-behavior#2.0-preview",
     "paper-ripple": "PolymerElements/paper-ripple#2.0-preview",
-    "polymer": "Polymer/polymer#2.0-preview"
+    "polymer": "Polymer/polymer#^2.0.0-rc.1"
   },
   "devDependencies": {
-    "iron-component-page": "polymerelements/iron-component-page#^1.0.0",
+    "iron-component-page": "polymerelements/iron-component-page#2.0-preview",
     "iron-test-helpers": "polymerelements/iron-test-helpers#2.0-preview",
-    "paper-material": "PolymerElements/paper-material#2.0-preview",
-    "test-fixture": "PolymerElements/test-fixture#custom-elements-v1",
-    "web-component-tester": "^4.0.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#v1"
+    "paper-styles": "PolymerElements/paper-styles#2.0-preview",
+    "test-fixture": "PolymerElements/test-fixture#^3.0.0-rc.1",
+    "web-component-tester": "Polymer/web-component-tester#^6.0.0-prerelease.6",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0-rc.1"
   },
   "ignore": [],
-  "resolutions": {
-    "iron-checked-element-behavior": "2.0-preview",
-    "paper-ripple": "2.0-preview",
-    "iron-behaviors": "2.0-preview",
-    "webcomponentsjs": "v1",
-    "iron-validatable-behavior": "2.0-preview",
-    "iron-a11y-keys-behavior": "2.0-preview",
-    "iron-meta": "2.0-preview",
-    "polymer": "2.0-preview",
-    "test-fixture": "custom-elements-v1",
-    "paper-material": "2.0-preview",
-    "iron-flex-layout": "2.0-preview",
-    "paper-styles": "2.0-preview"
+  "variants": {
+    "1.x": {
+      "dependencies": {
+        "iron-behaviors": "PolymerElements/iron-behaviors#^1.0.0",
+        "iron-checked-element-behavior": "PolymerElements/iron-checked-element-behavior#^1.0.0",
+        "paper-ripple": "PolymerElements/paper-ripple#^1.0.0",
+        "polymer": "Polymer/polymer#^1.2.1"
+      },
+      "devDependencies": {
+        "iron-component-page": "polymerelements/iron-component-page#^1.0.0",
+        "iron-test-helpers": "polymerelements/iron-test-helpers#^1.0.0",
+        "paper-styles": "PolymerElements/paper-styles#^1.0.0",
+        "test-fixture": "PolymerElements/test-fixture#^1.0.0",
+        "web-component-tester": "^4.0.0",
+        "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+      }
+    }
   },
-  "_release": "6bf80c2f12",
+  "_release": "844fca7543",
   "_resolution": {
     "type": "branch",
     "branch": "2.0-preview",
-    "commit": "6bf80c2f12bc34d8d24309f8133d2416095769ac"
+    "commit": "844fca7543dbdfdec6382ef9d60a4a95ffbfc225"
   },
-  "_source": "git://github.com/PolymerElements/paper-behaviors.git",
+  "_source": "https://github.com/PolymerElements/paper-behaviors.git",
   "_target": "2.0-preview",
   "_originalSource": "PolymerElements/paper-behaviors"
 }

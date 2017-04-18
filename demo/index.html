@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
+
+    <title>editable-list demo</title>
+
+    <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+    <link rel="import" href="../bower_components/iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../bower_components/iron-demo-helpers/demo-snippet.html">
+
+    <link rel="import" href="../bower_components/iron-icons/iron-icons.html">
+    <link rel="import" href="../bower_components/paper-fab/paper-fab.html">
+    <link rel="import" href="../bower_components/paper-input/paper-input.html">
+    <link rel="import" href="../bower_components/paper-checkbox/paper-checkbox.html">
+    <link rel="import" href="../bower_components/paper-icon-button/paper-icon-button.html">
+    <link rel="import" href="../x-element.html">
+    <link rel="import" href="../editable-list.html">
+    <link rel="import" href="../editable-item.html">
+
+    <style is="custom-style" include="demo-pages-shared-styles">
+      html, body {
+        font-family: sans-serif;
+        color: #333;
+      }
+
+      .centered {
+        max-width: 900px;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="vertical-section-container centered">
+      <h3>Basic editable-list demo</h3>
+
+      <demo-snippet>
+        <template>
+          <style is="custom-style">
+            .aligner {
+              display: flex;
+              align-items: center;
+            }
+
+            .item {
+              display: block;
+              float: left;
+              width: 25%;
+              padding: 0.35em;
+            }
+
+            .attachment-btn {
+              color: #FF9800;
+            }
+          </style>
+          <editable-list>
+            <div slot="header" class="item">Country</div>
+            <div slot="header" class="item">City</div>
+            <div slot="header" class="item">Verified</div>
+            <template>
+              <editable-item class="aligner list-item" item="{{item}}">
+                <paper-input class="item" value="{{item.country}}" no-label-float></paper-input>
+                <paper-input class="item" value="{{item.city}}" no-label-float></paper-input>
+                <paper-checkbox class="item" checked="{{item.verified}}"></paper-checkbox>
+                <paper-icon-button slot="actions" class="attachment-btn" icon="attachment" on-click="auxButtonPressed"></paper-icon-button>
+              </editable-item>
+            </template>
+          </editable-list>
+        </template>
+      </demo-snippet>
+
+      <hr>
+
+      <h3>As part of an element</h3>
+      <p>
+        Here the item is part of an element. The containing element declares
+        the data to use and the child element (list) shares it.
+      </p>
+      <p>
+        The containing element registers an observer for any changes to it's data.
+        You can view the observer firing in the console, indicating that data
+        changes in the list propagate to the containing element as usual.
+      </p>
+      <demo-snippet>
+        <template>
+          <x-element></x-element>
+        </template>
+      </demo-snippet>
+    </div>
+  </body>
+</html>

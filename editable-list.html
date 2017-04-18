@@ -1,0 +1,142 @@
+<link rel="import" href="bower_components/polymer/polymer-element.html">
+<link rel="import" href="bower_components/polymer/lib/elements/dom-if.html">
+<link rel="import" href="bower_components/polymer/lib/elements/dom-repeat.html">
+
+<!--
+`editable-list`
+CRUD list in Polymer 2.x
+
+@demo demo/index.html
+-->
+
+<dom-module id="editable-list">
+  <template>
+    <style is="custom-style">
+      :host {
+        display: block;
+        position: relative;
+      }
+
+      .headers {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        width: 100%;
+        height: 42px;
+        top: 0;
+        background: #3F51B5;
+        color: #fff;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.2);
+        z-index: 1;
+      }
+
+      .content {
+        overflow-y: scroll;
+        padding-top: 52px;
+      }
+
+      .add-btn {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: #E91E63;
+      }
+
+      .spacer {
+        /* Same width as actions container in <editable-item> */
+        width: 25%;
+      }
+
+      h4.empty-msg {
+        text-align: center;
+        color: #78909C;
+      }
+
+      ::slotted(editable-item.list-item:hover) {
+        background: #eee;
+      }
+    </style>
+    <header class="layout horizontal center headers">
+      <slot name="header"></slot>
+      <div class="spacer"></div>
+      <paper-fab class="add-btn" icon="add" on-click="_addRow" mini></paper-fab>
+    </header>
+    <div class="content">
+      <dom-if if="{{!data.contents.length}}">
+        <template>
+          <h4 class="empty-msg">No items!</h4>
+        </template>
+      </dom-if>
+      <slot></slot>
+      <dom-repeat id="repeater" items="{{data.contents}}"></dom-repeat>
+    </div>
+  </template>
+
+  <script>
+    class EditableList extends Polymer.Element {
+
+      static get is() {
+        return "editable-list"
+      }
+
+      static get properties() {
+        return {
+          data: {
+            type: Object,
+            value() {
+              return {
+                contents: [],
+                deletedRows: []
+              };
+            }
+          }
+        }
+      }
+
+      constructor() {
+        super();
+        this.addEventListener("delete-row", this._deleteRow);
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+        const repeater = this.root.querySelector("#repeater");
+        const tmpl = this.querySelector("template");
+        repeater.appendChild(tmpl);
+        this.appendChild(repeater);
+      }
+
+      _addRow() {
+        this.push("data.contents", {
+          id: `newRow-${this._getRandomId()}`
+        });
+      }
+
+      _deleteRow(e) {
+        this.data.contents.forEach((item, i) => {
+          if (item.id === e.detail) {
+            const spliced = this.splice("data.contents", i, 1);
+            const rowId = spliced[0].id;
+
+            if (!this._isNewRow(rowId)) {
+              this.push("data.deletedRows", rowId);
+            }
+          }
+        })
+      }
+
+      _getRandomId() {
+        const min = 1;
+        const max = 9999999;
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+      }
+
+      _isNewRow(id) {
+        return String(id).includes("newRow");
+      }
+
+    }
+
+    customElements.define(EditableList.is, EditableList);
+  </script>
+</dom-module>

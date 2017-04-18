@@ -1,0 +1,95 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+
+
+<dom-module id="x-element">
+  <template>
+    <style is="custom-style">
+      .aligner {
+        display: flex;
+        align-items: center;
+      }
+
+      .item {
+        display: block;
+        float: left;
+        width: 25%;
+        padding: 0.35em;
+      }
+
+      .attachment-btn {
+        color: #FF9800;
+      }
+    </style>
+    <editable-list data="{{data}}">
+      <div slot="header" class="item">Country</div>
+      <div slot="header" class="item">City</div>
+      <div slot="header" class="item">Verified</div>
+      <template>
+        <editable-item class="layout horizontal center list-item" item="{{item}}">
+          <paper-input class="item" value="{{item.country}}" no-label-float></paper-input>
+          <paper-input class="item" value="{{item.city}}" no-label-float></paper-input>
+          <paper-checkbox class="item" checked="{{item.verified}}"></paper-checkbox>
+          <paper-icon-button slot="actions" class="attachment-btn" icon="attachment" on-click="auxButtonPressed"></paper-icon-button>
+        </editable-item>
+      </template>
+    </editable-list>
+  </template>
+
+  <script>
+    class XElement extends Polymer.Element {
+
+      static get is() {
+        return "x-element"
+      }
+
+      static get properties() {
+        return {
+          data: {
+            type: Object,
+            value() {
+              return {
+                contents: [
+                  {
+                    id: 1,
+                    country: "United Kingdom",
+                    city: "London",
+                    verified: true
+                  },
+                  {
+                    id: 2,
+                    country: "China",
+                    city: "Beijing",
+                    verified: false
+                  }
+                ],
+                deletedRows: []
+              };
+            }
+          }
+        }
+      }
+
+      static get observers() {
+        return [
+          "_dataChanged(data.contents.*)"
+        ]
+      }
+
+      connectedCallback() {
+        super.connectedCallback();
+      }
+
+      _dataChanged(change) {
+        this.dispatchEvent(new CustomEvent("data-observer-fired", {
+          detail: change
+        }));
+      }
+
+      auxButtonPressed(e) {
+        console.info(`Aux button click intercepted in ${this.nodeName.toLowerCase()}`)
+      }
+    }
+
+    customElements.define(XElement.is, XElement);
+  </script>
+</dom-module>

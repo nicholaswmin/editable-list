@@ -92,12 +92,16 @@ Custom property | Description | Default
 
         vertical-align: middle;
 
-        fill: var(--iron-icon-fill-color, currentColor);
+        fill: var(--iron-icon-fill-color, currentcolor);
         stroke: var(--iron-icon-stroke-color, none);
 
         width: var(--iron-icon-width, 24px);
         height: var(--iron-icon-height, 24px);
         @apply --iron-icon;
+      }
+
+      :host([hidden]) {
+        display: none;
       }
     </style>
   </template>

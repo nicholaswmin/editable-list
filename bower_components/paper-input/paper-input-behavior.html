@@ -389,8 +389,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       return this.inputElement;
     },
 
+    created: function() {
+      // These types have some default placeholder text; overlapping
+      // the label on top of it looks terrible. Auto-float the label in this case.
+      this._typesThatHaveText = ["date", "datetime", "datetime-local", "month",
+          "time", "week", "file"];
+    },
+
     attached: function() {
       this._updateAriaLabelledBy();
+
+      // In the 2.0 version of the element, this is handled in `onIronInputReady`,
+      // i.e. after the native input has finished distributing. In the 1.0 version,
+      // the input is in the shadow tree, so it's already available.
+      if (!Polymer.Element && this.inputElement &&
+          this._typesThatHaveText.indexOf(this.inputElement.type) !== -1) {
+        this.alwaysFloatLabel = true;
+      }
     },
 
     _appendStringWithSpace: function(str, more) {
@@ -403,8 +418,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     },
 
     _onAddonAttached: function(event) {
-      var eventPath = event.composedPath();
-      var target = eventPath ? eventPath[0] : event.target;
+      var target = Polymer.dom(event).rootTarget;
       if (target.id) {
         this._ariaDescribedBy = this._appendStringWithSpace(this._ariaDescribedBy, target.id);
       } else {
@@ -427,15 +441,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
      * Forward focus to inputElement. Overriden from IronControlState.
      */
     _focusBlurHandler: function(event) {
-      Polymer.IronControlState._focusBlurHandler.call(this, event);
+      // Polymer 2.0 & Shady DOM has this horrible bug:
+      // https://github.com/webcomponents/shadydom/issues/121
+      // If you call paper-input.focus, it needs to focus its inner input, which
+      // in turn fires a blur event on the paper-input. Because of the bug,
+      // there's no way to look at this event and figure out it's not a real
+      // "i'm leaving this paper-input" blur. So, here's a gross hack. I am so sorry.
+      if (!(window.ShadyDOM && this._willFocusInputAndBlurSelf === true)) {
+        Polymer.IronControlState._focusBlurHandler.call(this, event);
+      }
+      this._willFocusInputAndBlurSelf = false;
 
       // Forward the focus to the nested input.
       if (this.focused && !this._shiftTabPressed && this._focusableElement) {
+        this._willFocusInputAndBlurSelf = true;
         this._focusableElement.focus();
 
         // If possible, also auto-select the text.
-        if (this._focusableElement.select)
+        if (this._focusableElement.select) {
           this._focusableElement.select();
+        }
       }
     },
 
@@ -543,7 +568,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       }
     }
-  }
+  };
 
   /** @polymerBehavior */
   Polymer.PaperInputBehavior = [

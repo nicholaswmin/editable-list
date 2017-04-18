@@ -1,10 +1,8 @@
 {
   "name": "polymer",
-  "version": "2.0.0-preview",
+  "version": "2.0.0-rc.6",
   "main": [
-    "polymer.html",
-    "polymer-mini.html",
-    "polymer-micro.html"
+    "polymer.html"
   ],
   "license": "http://polymer.github.io/LICENSE.txt",
   "ignore": [
@@ -23,14 +21,15 @@
     "url": "https://github.com/Polymer/polymer.git"
   },
   "dependencies": {
-    "webcomponentsjs": "#v1"
+    "shadycss": "webcomponents/shadycss#^v1.0.0-rc.1",
+    "webcomponentsjs": "^v1.0.0-rc.5"
   },
   "devDependencies": {
-    "web-component-tester": "*",
-    "test-fixture": "PolymerElements/test-fixture#custom-elements-v1"
+    "web-component-tester": "^5",
+    "test-fixture": "PolymerElements/test-fixture#3.0.0-rc.1"
   },
   "private": true,
   "resolutions": {
-    "test-fixture": "custom-elements-v1"
+    "test-fixture": "3.0.0-rc.1"
   }
 }

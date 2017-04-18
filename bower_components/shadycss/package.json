@@ -1,6 +1,6 @@
 {
   "name": "@webcomponents/shadycss",
-  "version": "0.0.1",
+  "version": "1.0.0-rc.5",
   "description": "Styling helpers for ShadyDOM",
   "main": "shadycss.min.js",
   "directories": {
@@ -10,31 +10,40 @@
     "type": "git",
     "url": "https://github.com/webcomponents/shadycss.git"
   },
-  "author": "The Polymer Authors",
+  "author": "The Polymer Project Authors (https://polymer.github.io/AUTHORS.txt)",
   "license": "BSD-3-Clause",
+  "keywords": [
+    "shady-css",
+    "shadycss",
+    "shadow-css",
+    "shadowcss",
+    "web-components",
+    "webcomponents",
+    "polyfill",
+    "shim"
+  ],
   "bugs": {
     "url": "https://github.com/webcomponents/shadycss/issues"
   },
   "scripts": {
     "build": "gulp",
-    "test": "eslint src test && gulp test-modules && wct"
+    "lint": "eslint src test entrypoints",
+    "test": "npm run lint && gulp test-modules && wct"
   },
-  "homepage": "http://webcomponents.org",
+  "homepage": "https://webcomponents.org/polyfills",
   "devDependencies": {
-    "@webcomponents/custom-elements": "^1.0.0-alpha.3",
-    "babel-plugin-external-helpers": "^6.8.0",
-    "babel-preset-es2015": "^6.16.0",
     "del": "^2.2.2",
     "eslint": "^3.4.0",
-    "eslint-plugin-html": "^1.5.2",
-    "google-closure-compiler": "^20160822.2.0",
+    "eslint-plugin-html": "^2.0.0",
+    "google-closure-compiler": "^20170218.0.0",
     "gulp": "^3.8.8",
     "gulp-rename": "^1.2.2",
-    "gulp-sourcemaps": "^1.6.0",
-    "rollup-plugin-babel": "^2.6.1",
-    "rollup-stream": "^1.13.0",
+    "gulp-size": "^2.1.0",
+    "gulp-sourcemaps": "^2.4.0",
+    "rollup-stream": "^1.14.0",
+    "run-sequence": "^1.2.2",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
-    "web-component-tester": "^4.0.1"
+    "web-component-tester": "^6.0.0-prerelease.4"
   }
 }

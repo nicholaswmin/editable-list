@@ -1,6 +1,6 @@
 /**
 @license
-Copyright (c) 2016 The Polymer Project Authors. All rights reserved.
+Copyright (c) 2017 The Polymer Project Authors. All rights reserved.
 This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
 The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
 The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
@@ -11,71 +11,86 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 'use strict';
 
 import {nativeShadow} from './style-settings'
-import {StyleTransformer} from './style-transformer'
+import StyleTransformer from './style-transformer'
+import {getIsExtends} from './style-util'
 
 export let flush = function() {};
 
-if (!nativeShadow) {
-  let elementNeedsScoping = (element) => {
-    return (element.classList &&
-      !element.classList.contains(StyleTransformer.SCOPE_NAME) ||
-      // note: necessary for IE11
-      (element instanceof SVGElement && (!element.hasAttribute('class') ||
-      element.getAttribute('class').indexOf(StyleTransformer.SCOPE_NAME) < 0)));
+/**
+ * @param {HTMLElement} element
+ * @return {!Array<string>}
+ */
+function getClasses(element) {
+  let classes = [];
+  if (element.classList) {
+    classes = Array.from(element.classList);
+  } else if (element instanceof window['SVGElement'] && element.hasAttribute('class')) {
+    classes = element.getAttribute('class').split(/\s+/);
   }
+  return classes;
+}
 
-  let handler = (mxns) => {
-    for (let x=0; x < mxns.length; x++) {
-      let mxn = mxns[x];
-      if (mxn.target === document.documentElement ||
-        mxn.target === document.head) {
+/**
+ * @param {HTMLElement} element
+ * @return {string}
+ */
+function getCurrentScope(element) {
+  let classes = getClasses(element);
+  let idx = classes.indexOf(StyleTransformer.SCOPE_NAME);
+  if (idx > -1) {
+    return classes[idx + 1];
+  }
+  return '';
+}
+
+/**
+ * @param {Array<MutationRecord|null>|null} mxns
+ */
+function handler(mxns) {
+  for (let x=0; x < mxns.length; x++) {
+    let mxn = mxns[x];
+    if (mxn.target === document.documentElement ||
+      mxn.target === document.head) {
+      continue;
+    }
+    for (let i=0; i < mxn.addedNodes.length; i++) {
+      let n = mxn.addedNodes[i];
+      if (n.nodeType !== Node.ELEMENT_NODE) {
         continue;
       }
-      for (let i=0; i < mxn.addedNodes.length; i++) {
-        let n = mxn.addedNodes[i];
-        if (elementNeedsScoping(n)) {
-          let root = n.getRootNode();
-          if (root.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
-            // may no longer be in a shadowroot
-            let host = root.host;
-            if (host) {
-              let scope = host.is || host.localName;
-              StyleTransformer.dom(n, scope);
-            }
-          }
+      n = /** @type {HTMLElement} */(n); // eslint-disable-line no-self-assign
+      let root = n.getRootNode();
+      let currentScope = getCurrentScope(n);
+      // node was scoped, but now is in document
+      if (currentScope && root === n.ownerDocument) {
+        StyleTransformer.dom(n, currentScope, true);
+      } else if (root.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
+        let newScope;
+        let host = /** @type {ShadowRoot} */(root).host;
+        // element may no longer be in a shadowroot
+        if (!host) {
+          continue;
         }
-      }
-      for (let i=0; i < mxn.removedNodes.length; i++) {
-        let n = mxn.removedNodes[i];
-        if (n.nodeType === Node.ELEMENT_NODE) {
-          let classes = undefined;
-          if (n.classList) {
-            classes = Array.from(n.classList);
-          } else if (n.hasAttribute('class')) {
-            classes = n.getAttribute('class').split(/\s+/);
-          }
-          if (classes !== undefined) {
-            // NOTE: relies on the scoping class always being adjacent to the
-            // SCOPE_NAME class.
-            let classIdx = classes.indexOf(StyleTransformer.SCOPE_NAME);
-            if (classIdx >= 0) {
-              let scope = classes[classIdx + 1];
-              if (scope) {
-                StyleTransformer.dom(n, scope, true);
-              }
-            }
-          }
+        newScope = getIsExtends(host).is;
+        if (currentScope === newScope) {
+          continue;
         }
+        if (currentScope) {
+          StyleTransformer.dom(n, currentScope, true);
+        }
+        StyleTransformer.dom(n, newScope);
       }
     }
-  };
+  }
+}
 
+if (!nativeShadow) {
   let observer = new MutationObserver(handler);
   let start = (node) => {
     observer.observe(node, {childList: true, subtree: true});
   }
-  let nativeCustomElements = (window.customElements &&
-    !window.customElements.flush);
+  let nativeCustomElements = (window['customElements'] &&
+    !window['customElements']['polyfillWrapFlushCallback']);
   // need to start immediately with native custom elements
   // TODO(dfreedm): with polyfilled HTMLImports and native custom elements
   // excessive mutations may be observed; this can be optimized via cooperation
@@ -87,8 +102,8 @@ if (!nativeShadow) {
       start(document.body);
     }
     // use polyfill timing if it's available
-    if (window.HTMLImports) {
-      window.HTMLImports.whenReady(delayedStart);
+    if (window['HTMLImports']) {
+      window['HTMLImports']['whenReady'](delayedStart);
     // otherwise push beyond native imports being ready
     // which requires RAF + readystate interactive.
     } else {
