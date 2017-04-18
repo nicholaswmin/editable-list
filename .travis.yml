@@ -19,6 +19,7 @@ before_script:
 - npm install -g bower
 - npm install -g bower polymer-cli@next
 - npm install -g web-component-tester
+- npm install
 - bower install
 script:
 - polymer test
