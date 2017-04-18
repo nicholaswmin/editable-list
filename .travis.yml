@@ -1,25 +1,17 @@
 language: node_js
 sudo: required
-dist: trusty
-node_js: stable
+before_script:
+  - npm install -g bower polylint web-component-tester
+  - bower install
+node_js: '6'
 addons:
   firefox: latest
   apt:
     sources:
-    - google-chrome
+      - google-chrome
     packages:
-    - google-chrome-beta
-cache:
-  directories:
-  - node_modules
-before_script:
-- mkdir -p ~/bin
-- ln -s /usr/bin/google-chrome-beta ~/bin/google-chrome
-- export PATH=$HOME/bin:$PATH
-- npm install -g bower
-- npm install -g bower polymer-cli@next
-- npm install -g web-component-tester
-- npm install
-- bower install
+      - google-chrome-stable
 script:
-- polymer test
+  - xvfb-run wct
+  - 'if [ "${TRAVIS_PULL_REQUEST}" = "false" ]; then wct -s ''default''; fi'
+dist: trusty
