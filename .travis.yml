@@ -1,0 +1,24 @@
+language: node_js
+sudo: required
+dist: trusty
+node_js: stable
+addons:
+  firefox: latest
+  apt:
+    sources:
+    - google-chrome
+    packages:
+    - google-chrome-beta
+cache:
+  directories:
+  - node_modules
+before_script:
+- mkdir -p ~/bin
+- ln -s /usr/bin/google-chrome-beta ~/bin/google-chrome
+- export PATH=$HOME/bin:$PATH
+- npm install -g bower
+- npm install -g bower polymer-cli@next
+- npm install -g web-component-tester
+- bower install
+script:
+- polymer test
