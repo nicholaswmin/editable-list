@@ -123,6 +123,8 @@ some problems with event handling (which is needed when deleting rows).
 
 ```bash
 $ npm install -g polymer-cli@next
+$ npm install
+$ bower install
 $ polymer serve
 ```
 
