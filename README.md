@@ -136,6 +136,9 @@ $ polymer serve
 ```bash
 $ npm install -g web-component-tester
 $ polymer test
+
+# Or run both `$ polymer test && polymer lint`
+$ npm test
 ```
 
 ## License
