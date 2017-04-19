@@ -16,5 +16,5 @@ addons:
 script:
   - npm install
   - bower install
-  - xvfb-run polymer test
+  - xvfb-run polymer test -l chrome
 dist: trusty
