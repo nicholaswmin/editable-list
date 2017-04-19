@@ -34,7 +34,6 @@
     "iron-icon": "2.0-preview",
     "paper-behaviors": "2.0-preview",
     "iron-checked-element-behavior": "2.0-preview",
-    "paper-ripple": "2.0-preview",
-    "webcomponentsjs": "^1.0.0-rc.5"
+    "paper-ripple": "2.0-preview"
   }
 }
