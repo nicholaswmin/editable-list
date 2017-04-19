@@ -16,5 +16,5 @@ script:
   - npm install
   - bower install
   - xvfb-run polymer test
-  - xvfb-run polymer lint
+  - polymer lint
 dist: trusty
