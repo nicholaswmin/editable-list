@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/nicholaswmin/editable-list.svg?branch=master)](https://travis-ci.org/nicholaswmin/editable-list)
+
+
 # editable-list
 
 > CRUD list in [Polymer 2.x][1]
