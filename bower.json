@@ -3,7 +3,14 @@
   "description": "CRUD list in Polymer 2.x",
   "main": "editable-list.html",
   "dependencies": {
-    "polymer": "Polymer/polymer#^2.0.0-rc.2"
+    "polymer": "Polymer/polymer#^2.0.0-rc.2",
+    "paper-fab": "PolymerElements/paper-fab#2.0-preview",
+    "iron-icon": "PolymerElements/iron-icon#^1.0.12",
+    "paper-input": "PolymerElements/paper-input#2.0-preview",
+    "paper-checkbox": "PolymerElements/paper-checkbox#2.0-preview",
+    "paper-icon-button": "PolymerElements/paper-icon-button#2.0-preview",
+    "iron-icons": "PolymerElements/iron-icons#2.0-preview",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#2.0-preview"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#2.0-preview",
@@ -11,6 +18,23 @@
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0-rc.5"
   },
   "resolutions": {
-    "polymer": "^2.0.0-rc.2"
+    "polymer": "^2.0.0-rc.2",
+    "iron-flex-layout": "2.0-preview",
+    "iron-meta": "2.0-preview",
+    "iron-behaviors": "2.0-preview",
+    "iron-validatable-behavior": "2.0-preview",
+    "iron-form-element-behavior": "2.0-preview",
+    "iron-a11y-keys-behavior": "2.0-preview",
+    "paper-styles": "2.0-preview",
+    "paper-input": "2.0-preview",
+    "iron-autogrow-textarea": "2.0-preview",
+    "iron-input": "2.0-preview",
+    "iron-a11y-announcer": "2.0-preview",
+    "paper-fab": "2.0-preview",
+    "iron-icon": "2.0-preview",
+    "paper-behaviors": "2.0-preview",
+    "iron-checked-element-behavior": "2.0-preview",
+    "paper-ripple": "2.0-preview",
+    "webcomponentsjs": "^v1.0.0-rc.5"
   }
 }
