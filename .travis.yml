@@ -4,9 +4,6 @@ before_script:
   - npm install -g bower polymer-cli@next
   - sudo mv /usr/bin/google-chrome /usr/bin/google-chrome-old
   - sudo mv /usr/bin/google-chrome-beta /usr/bin/google-chrome
-  - "sh -e /etc/init.d/xvfb start"
-  - sleep 3 # give xvfb some time to start
-
 node_js: stable
 addons:
   firefox: latest
@@ -18,5 +15,5 @@ addons:
 script:
   - npm install
   - bower install
-  - polymer test
+  - xvfb-run polymer test
 dist: trusty

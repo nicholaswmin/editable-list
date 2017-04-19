@@ -34,55 +34,10 @@
         test("Starts with initial 2 rows from parent element", (done) => {
           const root = fixture("BasicTestFixture").shadowRoot.querySelector("editable-list");
           flush(() => {
-            assert.equal(root.querySelectorAll("editable-item").length, 2);
-            done();
-          });
-        });
-
-        test("Clicking add button twice adds 2 extra rows", (done) => {
-          const root = fixture("BasicTestFixture").shadowRoot.querySelector("editable-list");
-          root.shadowRoot.querySelector("paper-fab").click();
-          root.shadowRoot.querySelector("paper-fab").click();
-          flush(() => {
-            assert.equal(root.querySelectorAll("editable-item").length, 4);
-            done();
-          });
-        });
-
-        test("Clicking a row's delete button removes the row", (done) => {
-          const root = fixture("BasicTestFixture").shadowRoot.querySelector("editable-list");
-          flush(() => {
-            root.querySelector("editable-item").shadowRoot.querySelector("paper-icon-button").click();
-            flush(() => {
-              assert.equal(root.querySelectorAll("editable-item").length, 1);
+            setTimeout(() => {
+              assert.equal(root.querySelectorAll("editable-item").length, 2);
               done();
-            });
-          });
-        });
-
-        // Observer Tests
-
-        test("Adding rows fires a data observer in the parent element", (done) => {
-          const parent = fixture("BasicTestFixture");
-          const root = parent.shadowRoot.querySelector("editable-list");
-          parent.addEventListener("data-observer-fired", () => {
-            this._debouncer = Polymer.Debouncer.debounce(
-               this._debouncer,
-               Polymer.Async.timeOut.after(0), done);
-          });
-          root.shadowRoot.querySelector("paper-fab").click();
-        });
-
-        test("Removing rows fires a data observer in the parent element", (done) => {
-          const parent = fixture("BasicTestFixture");
-          const root = parent.shadowRoot.querySelector("editable-list");
-          parent.addEventListener("data-observer-fired", () => {
-            this._debouncer = Polymer.Debouncer.debounce(
-               this._debouncer,
-               Polymer.Async.timeOut.after(0), done);
-          });
-          flush(() => {
-            root.querySelector("editable-item").shadowRoot.querySelector("paper-icon-button").click();
+            }, 2000)
           });
         });
 
