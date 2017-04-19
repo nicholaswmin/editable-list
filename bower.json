@@ -20,7 +20,6 @@
   "resolutions": {
     "polymer": "^2.0.0-rc.1",
     "iron-flex-layout": "2.0-preview",
-    "webcomponentsjs": "^0.7.24",
     "iron-meta": "2.0-preview",
     "iron-behaviors": "2.0-preview",
     "iron-validatable-behavior": "2.0-preview",
@@ -35,6 +34,7 @@
     "iron-icon": "2.0-preview",
     "paper-behaviors": "2.0-preview",
     "iron-checked-element-behavior": "2.0-preview",
-    "paper-ripple": "2.0-preview"
+    "paper-ripple": "2.0-preview",
+    "webcomponentsjs": "^v1.0.0-rc.5"
   }
 }
