@@ -21,26 +21,19 @@
   </head>
   <body>
 
-    <test-fixture id="BasicTestFixture">
-      <template>
-        <x-element></x-element>
-      </template>
-    </test-fixture>
+    <x-element id="xElem"></x-element>
 
     <script>
       // DOM Tests
 
       suite("editable-list", function() {
         test("Starts with initial 2 rows from parent element", (done) => {
-          const root = fixture("BasicTestFixture").shadowRoot.querySelector("editable-list");
+          const root = document.getElementById("xElem").shadowRoot.querySelector("editable-list");
           flush(() => {
-            setTimeout(() => {
-              assert.equal(root.querySelectorAll("editable-item").length, 2);
-              done();
-            }, 2000)
+            assert.equal(root.querySelectorAll("editable-item").length, 2);
+            done();
           });
         });
-
       });
     </script>
 
