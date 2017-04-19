@@ -135,7 +135,7 @@ $ npm install -g web-component-tester
 $ polymer test
 ```
 
-## LICENSE
+## License
 
 > The MIT License (MIT)
 
