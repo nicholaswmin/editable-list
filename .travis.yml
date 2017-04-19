@@ -1,24 +1,19 @@
 language: node_js
 sudo: required
-dist: trusty
+before_script:
+  - npm install -g bower polymer-cli@next
+  - sudo mv /usr/bin/google-chrome /usr/bin/google-chrome-old
+  - sudo mv /usr/bin/google-chrome-beta /usr/bin/google-chrome
 node_js: stable
 addons:
   firefox: latest
   apt:
     sources:
-    - google-chrome
+      - google-chrome
     packages:
-    - google-chrome-beta
-cache:
-  directories:
-  - node_modules
-before_script:
-- mkdir -p ~/bin
-- ln -s /usr/bin/google-chrome-beta ~/bin/google-chrome
-- export PATH=$HOME/bin:$PATH
-- npm install -g bower
-- npm install -g bower polymer-cli@next
-- npm install -g web-component-tester
-- bower install
+      - google-chrome-beta
 script:
-- polymer test
+  - npm install
+  - bower install
+  - xvfb-run polymer test
+dist: trusty

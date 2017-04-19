@@ -1,0 +1,30 @@
+{
+  "name": "editable-list",
+  "version": "0.0.1",
+  "description": "CRUD list in Polymer 2.x",
+  "main": "index.html",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "web-component-tester": "^5.0.1"
+  },
+  "scripts": {
+    "test": "polymer test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nicholaswmin/editable-list.git"
+  },
+  "keywords": [
+    "crud",
+    "polymer-2.x"
+  ],
+  "author": "@nicholaswmin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nicholaswmin/editable-list/issues"
+  },
+  "homepage": "https://github.com/nicholaswmin/editable-list#readme"
+}
