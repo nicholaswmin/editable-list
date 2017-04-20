@@ -11,14 +11,14 @@
 
 ```bash
 $ npm install -g polymer-cli@next
-$ npm install && bower install
+$ bower install
 $ polymer serve
 ```
 
 ## Running tests
 
 ```bash
-$ npm install -g web-component-tester
+$ npm install &&  npm install -g web-component-tester
 $ polymer test
 
 # Or run both `$ polymer test && polymer lint`
@@ -60,7 +60,7 @@ The following markup creates the list displayed above.
         slot="actions"
         class="attachment-btn"
         icon="attachment"
-        on-click="auxButtonPressed">
+        on-click="aFuncInHostElement">
       </paper-icon-button>
     </editable-item>
   </template>
@@ -71,7 +71,7 @@ The following markup creates the list displayed above.
 ## The good stuff
 
 It's flexible. You can easily change the DOM of each row, apply CSS to it
-from the containing element, & call functions of the containing element.
+from the containing element & call functions of the containing element.
 
 Nevertheless, the Shadow DOM encapsulation principles apply as usual.
 
@@ -131,3 +131,7 @@ direct styling and method binding from within the element that actually contains
 the `editable-list`.
 
 [1]:https://www.polymer-project.org/2.0/docs/about_20
+
+## License
+
+Read "LICENSE" file in root directory
