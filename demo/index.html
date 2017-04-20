@@ -39,7 +39,7 @@
       <demo-snippet>
         <template>
           <style is="custom-style">
-            .aligner {
+            editable-item {
               display: flex;
               align-items: center;
             }
@@ -56,15 +56,20 @@
             }
           </style>
           <editable-list>
-            <div slot="header" class="item">Country</div>
-            <div slot="header" class="item">City</div>
-            <div slot="header" class="item">Verified</div>
+            <header slot="header">Country</header>
+            <header slot="header">City</header>
+            <header slot="header">Verified</header>
             <template>
-              <editable-item class="aligner list-item" item="{{item}}">
+              <editable-item item="{{item}}">
                 <paper-input class="item" value="{{item.country}}" no-label-float></paper-input>
                 <paper-input class="item" value="{{item.city}}" no-label-float></paper-input>
                 <paper-checkbox class="item" checked="{{item.verified}}"></paper-checkbox>
-                <paper-icon-button slot="actions" class="attachment-btn" icon="attachment" on-click="auxButtonPressed"></paper-icon-button>
+                <paper-icon-button
+                  slot="actions"
+                  class="attachment-btn"
+                  icon="attachment"
+                  on-click="auxButtonPressed">
+                </paper-icon-button>
               </editable-item>
             </template>
           </editable-list>
@@ -75,13 +80,14 @@
 
       <h3>As part of an element</h3>
       <p>
-        Here the item is part of an element. The containing element declares
-        the data to use and the child element (list) shares it.
+        Here the item is part of an element, x-element. The host element
+        declares the data to use and the child element (editable-list) shares it.
       </p>
       <p>
-        The containing element registers an observer for any changes to it's data.
+        The host element also registers an observer for any changes to the data
+        it provided to the child element.
         You can view the observer firing in the console, indicating that data
-        changes in the list propagate to the containing element as usual.
+        changes propagate from the child to the host element as usual.
       </p>
       <demo-snippet>
         <template>

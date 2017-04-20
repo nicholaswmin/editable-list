@@ -12,7 +12,7 @@
 <dom-module id="x-element">
   <template>
     <style is="custom-style">
-      .aligner {
+      editable-item {
         display: flex;
         align-items: center;
       }
@@ -29,15 +29,20 @@
       }
     </style>
     <editable-list data="{{data}}">
-      <div slot="header" class="item">Country</div>
-      <div slot="header" class="item">City</div>
-      <div slot="header" class="item">Verified</div>
+      <header slot="header">Country</header>
+      <header slot="header">City</header>
+      <header slot="header">Verified</header>
       <template>
-        <editable-item class="aligner list-item" item="{{item}}">
+        <editable-item item="{{item}}">
           <paper-input class="item" value="{{item.country}}" no-label-float></paper-input>
           <paper-input class="item" value="{{item.city}}" no-label-float></paper-input>
           <paper-checkbox class="item" checked="{{item.verified}}"></paper-checkbox>
-          <paper-icon-button slot="actions" class="attachment-btn" icon="attachment" on-click="auxButtonPressed"></paper-icon-button>
+          <paper-icon-button
+            slot="actions"
+            class="attachment-btn"
+            icon="attachment"
+            on-click="auxButtonPressed">
+          </paper-icon-button>
         </editable-item>
       </template>
     </editable-list>
@@ -88,13 +93,14 @@
       }
 
       _dataChanged(change) {
+        console.info(`_dataChanged observer fired in <${this.nodeName.toLowerCase()}>`)
         this.dispatchEvent(new CustomEvent("data-observer-fired", {
           detail: change
         }));
       }
 
       auxButtonPressed(e) {
-        console.info(`Aux button click intercepted in ${this.nodeName.toLowerCase()}`)
+        console.info(`Aux button click intercepted in <${this.nodeName.toLowerCase()}>`)
       }
     }
 

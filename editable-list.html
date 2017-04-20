@@ -31,6 +31,13 @@ CRUD list in Polymer 2.x
         z-index: 1;
       }
 
+      ::slotted(header) {
+        display: block;
+        float: left;
+        width: 25%;
+        padding: 0.35em;
+      }
+
       .content {
         overflow-y: scroll;
         padding-top: 52px;
@@ -53,7 +60,7 @@ CRUD list in Polymer 2.x
         color: #78909C;
       }
 
-      ::slotted(editable-item.list-item:hover) {
+      ::slotted(editable-item:hover) {
         background: #eee;
       }
     </style>

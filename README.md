@@ -13,7 +13,7 @@ The following markup creates the list displayed above.
 
 ```html
 <style is="custom-style">
-  .aligner {
+  editable-item {
     display: flex;
     align-items: center;
   }
@@ -30,13 +30,13 @@ The following markup creates the list displayed above.
   }
 </style>
 <editable-list>
-  <div slot="header" class="item">Country</div>
-  <div slot="header" class="item">City</div>
-  <div slot="header" class="item">Verified</div>
+  <header slot="header">Country</header>
+  <header slot="header">City</header>
+  <header slot="header">Verified</header>
   <template>
-    <editable-item class="aligner list-item" item="{{item}}">
-      <paper-input class="item" value="{{item.country}}"></paper-input>
-      <paper-input class="item" value="{{item.city}}"></paper-input>
+    <editable-item item="{{item}}">
+      <paper-input class="item" value="{{item.country}}" no-label-float></paper-input>
+      <paper-input class="item" value="{{item.city}}" no-label-float></paper-input>
       <paper-checkbox class="item" checked="{{item.verified}}"></paper-checkbox>
       <paper-icon-button
         slot="actions"
