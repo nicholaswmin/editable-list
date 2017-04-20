@@ -28,11 +28,18 @@
     </test-fixture>
 
     <script>
-      suite("editable-list", function() {
+      suite("editable-list", () => {
+        let host;
+        let list;
+
+        setup(() => {
+          host = fixture("BasicTestFixture");
+          list = host.shadowRoot.querySelector("editable-list");
+        })
+
         // Initial Data
 
-        test("Starts with initial 2 rows from parent element", (done) => {
-          const list = fixture("BasicTestFixture").shadowRoot.querySelector("editable-list");
+        test("Starts with initial 2 rows from host element", done => {
           flush(() => {
             expect(list.querySelectorAll("editable-item")).to.have.length(2);
             done();
@@ -41,8 +48,7 @@
 
         // Additions
 
-        test("Clicking add button adds an extra row", (done) => {
-          const list = fixture("BasicTestFixture").shadowRoot.querySelector("editable-list");
+        test("Clicking add button adds an extra row", done => {
           list.shadowRoot.querySelector("paper-fab").click();
           flush(() => {
             expect(list.querySelectorAll("editable-item")).to.have.length(3);
@@ -55,8 +61,7 @@
 
         // Deletions
 
-        test("Deleting a pre-set row adds the row id in deletedRows", (done) => {
-          const list = fixture("BasicTestFixture").shadowRoot.querySelector("editable-list");
+        test("Deleting a pre-set row adds the row id in deletedRows", done => {
           flush(() => {
             list.querySelector("editable-item").shadowRoot.querySelector("paper-icon-button").click();
             flush(() => {
@@ -68,8 +73,7 @@
           });
         });
 
-        test("Adding a new row then deleting it does not add the row id in deletedRows", (done) => {
-          const list = fixture("BasicTestFixture").shadowRoot.querySelector("editable-list");
+        test("Adding a new row then deleting it does not add the row id in deletedRows", done => {
           list.shadowRoot.querySelector("paper-fab").click();
           flush(() => {
             const rows = list.querySelectorAll("editable-item");
@@ -84,8 +88,7 @@
 
         // Inline Editing
 
-        test("Editing a newly added row, adds the field key/value pair in data array contents row", (done) => {
-          const list = fixture("BasicTestFixture").shadowRoot.querySelector("editable-list");
+        test("Editing a newly added row, adds the field key/value pair in data array contents row", done => {
           list.shadowRoot.querySelector("paper-fab").click();
           flush(() => {
             const rows = list.querySelectorAll("editable-item");
@@ -99,11 +102,13 @@
           });
         });
 
-        // Observer Propagation
+        // Host Element OSbserver Propagations
+        //
+        // We debounce the observer firings so we don't call `done()` twice.
+        // Observers watch an array so they fire both `array.splices` and `value`
+        // events for each change
 
-        test("Adding rows fires a data observer in the parent element", (done) => {
-          const host = fixture("BasicTestFixture");
-          const list = host.shadowRoot.querySelector("editable-list");
+        test("Adding rows fires a data observer in the host element", done => {
           host.addEventListener("data-observer-fired", () => {
             this._debouncer = Polymer.Debouncer.debounce(
                this._debouncer,
@@ -112,9 +117,7 @@
           list.shadowRoot.querySelector("paper-fab").click();
         });
 
-        test("Removing rows fires a data observer in the parent element", (done) => {
-          const host = fixture("BasicTestFixture");
-          const list = host.shadowRoot.querySelector("editable-list");
+        test("Removing rows fires a data observer in the host element", done => {
           host.addEventListener("data-observer-fired", () => {
             this._debouncer = Polymer.Debouncer.debounce(
                this._debouncer,
@@ -125,9 +128,7 @@
           });
         });
 
-        test("Inline editing of rows fires a data observer in the parent element", (done) => {
-          const host = fixture("BasicTestFixture");
-          const list = host.shadowRoot.querySelector("editable-list");
+        test("Inline editing of rows fires a data observer in the host element", done => {
           host.addEventListener("data-observer-fired", () => {
             this._debouncer = Polymer.Debouncer.debounce(
                this._debouncer,
