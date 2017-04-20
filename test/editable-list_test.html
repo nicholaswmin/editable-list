@@ -28,61 +28,113 @@
     </test-fixture>
 
     <script>
-      // DOM Tests
-
       suite("editable-list", function() {
+        // Initial Data
+
         test("Starts with initial 2 rows from parent element", (done) => {
-          const root = fixture("BasicTestFixture").shadowRoot.querySelector("editable-list");
+          const list = fixture("BasicTestFixture").shadowRoot.querySelector("editable-list");
           flush(() => {
-            assert.equal(root.querySelectorAll("editable-item").length, 2);
+            expect(list.querySelectorAll("editable-item")).to.have.length(2);
             done();
           });
         });
 
-        test("Clicking add button twice adds 2 extra rows", (done) => {
-          const root = fixture("BasicTestFixture").shadowRoot.querySelector("editable-list");
-          root.shadowRoot.querySelector("paper-fab").click();
-          root.shadowRoot.querySelector("paper-fab").click();
+        // Additions
+
+        test("Clicking add button adds an extra row", (done) => {
+          const list = fixture("BasicTestFixture").shadowRoot.querySelector("editable-list");
+          list.shadowRoot.querySelector("paper-fab").click();
           flush(() => {
-            assert.equal(root.querySelectorAll("editable-item").length, 4);
+            expect(list.querySelectorAll("editable-item")).to.have.length(3);
+            expect(list.data.contents).to.have.length(3);
+            expect(list.data.contents[list.data.contents.length - 1]).to.have.keys(["id"]);
+            expect(list.data.contents[list.data.contents.length - 1].id).to.include("newRow");
             done();
           });
         });
 
-        test("Clicking a row's delete button removes the row", (done) => {
-          const root = fixture("BasicTestFixture").shadowRoot.querySelector("editable-list");
+        // Deletions
+
+        test("Deleting a pre-set row adds the row id in deletedRows", (done) => {
+          const list = fixture("BasicTestFixture").shadowRoot.querySelector("editable-list");
           flush(() => {
-            root.querySelector("editable-item").shadowRoot.querySelector("paper-icon-button").click();
+            list.querySelector("editable-item").shadowRoot.querySelector("paper-icon-button").click();
             flush(() => {
-              assert.equal(root.querySelectorAll("editable-item").length, 1);
+              expect(list.querySelectorAll("editable-item")).to.have.length(1);
+              expect(list.data.deletedRows).to.have.length(1);
+              expect(list.data.deletedRows[0]).to.equal(1);
               done();
             });
           });
         });
 
-        // Observer Tests
+        test("Adding a new row then deleting it does not add the row id in deletedRows", (done) => {
+          const list = fixture("BasicTestFixture").shadowRoot.querySelector("editable-list");
+          list.shadowRoot.querySelector("paper-fab").click();
+          flush(() => {
+            const rows = list.querySelectorAll("editable-item");
+            const lastRow = rows[rows.length - 1];
+            lastRow.shadowRoot.querySelector("paper-icon-button").click();
+            flush(() => {
+              expect(list.data.deletedRows).to.have.length(0);
+              done();
+            });
+          });
+        });
+
+        // Inline Editing
+
+        test("Editing a newly added row, adds the field key/value pair in data array contents row", (done) => {
+          const list = fixture("BasicTestFixture").shadowRoot.querySelector("editable-list");
+          list.shadowRoot.querySelector("paper-fab").click();
+          flush(() => {
+            const rows = list.querySelectorAll("editable-item");
+            const lastRow = rows[rows.length - 1];
+            lastRow.querySelector("paper-input").set("value", "Rome");
+            flush(() => {
+              expect(list.data.contents[list.data.contents.length - 1]).to.have.keys(["id", "country"]);
+              expect(list.data.contents[list.data.contents.length - 1].country).to.equal("Rome")
+              done();
+            });
+          });
+        });
+
+        // Observer Propagation
 
         test("Adding rows fires a data observer in the parent element", (done) => {
-          const parent = fixture("BasicTestFixture");
-          const root = parent.shadowRoot.querySelector("editable-list");
-          parent.addEventListener("data-observer-fired", () => {
+          const host = fixture("BasicTestFixture");
+          const list = host.shadowRoot.querySelector("editable-list");
+          host.addEventListener("data-observer-fired", () => {
             this._debouncer = Polymer.Debouncer.debounce(
                this._debouncer,
-               Polymer.Async.timeOut.after(0), done);
+               Polymer.Async.timeOut.after(200), done);
           });
-          root.shadowRoot.querySelector("paper-fab").click();
+          list.shadowRoot.querySelector("paper-fab").click();
         });
 
         test("Removing rows fires a data observer in the parent element", (done) => {
-          const parent = fixture("BasicTestFixture");
-          const root = parent.shadowRoot.querySelector("editable-list");
-          parent.addEventListener("data-observer-fired", () => {
+          const host = fixture("BasicTestFixture");
+          const list = host.shadowRoot.querySelector("editable-list");
+          host.addEventListener("data-observer-fired", () => {
             this._debouncer = Polymer.Debouncer.debounce(
                this._debouncer,
-               Polymer.Async.timeOut.after(0), done);
+               Polymer.Async.timeOut.after(200), done);
           });
           flush(() => {
-            root.querySelector("editable-item").shadowRoot.querySelector("paper-icon-button").click();
+            list.querySelector("editable-item").shadowRoot.querySelector("paper-icon-button").click();
+          });
+        });
+
+        test("Inline editing of rows fires a data observer in the parent element", (done) => {
+          const host = fixture("BasicTestFixture");
+          const list = host.shadowRoot.querySelector("editable-list");
+          host.addEventListener("data-observer-fired", () => {
+            this._debouncer = Polymer.Debouncer.debounce(
+               this._debouncer,
+               Polymer.Async.timeOut.after(200), done);
+          });
+          flush(() => {
+            list.querySelector("editable-item").querySelector("paper-input").set("value", "Rome");
           });
         });
 
