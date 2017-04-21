@@ -1,29 +1,11 @@
 [![Build Status](https://travis-ci.org/nicholaswmin/editable-list.svg?branch=master)](https://travis-ci.org/nicholaswmin/editable-list)
 
-
 # editable-list
 
 > CRUD list in [Polymer 2.x][1]
 
 <div style="text-align:center"><img src="http://i.imgur.com/p1fm4eE.png"/></div>
 
-## View this element
-
-```bash
-$ npm install -g polymer-cli@next
-$ bower install
-$ polymer serve
-```
-
-## Running tests
-
-```bash
-$ npm install &&  npm install -g web-component-tester
-$ polymer test
-
-# Or run both `$ polymer test && polymer lint`
-$ npm test
-```
 
 ## The markup
 
@@ -65,6 +47,26 @@ The following markup creates the list displayed above.
     </editable-item>
   </template>
 </editable-list>
+```
+
+
+## View this element
+
+```bash
+$ npm install -g polymer-cli@next
+$ bower install
+$ polymer serve
+```
+
+
+## Running tests
+
+```bash
+$ npm install && npm install -g web-component-tester
+$ polymer test
+
+# Or run both `$ polymer test && polymer lint`
+$ npm test
 ```
 
 
@@ -110,6 +112,7 @@ propagate as usual to the host element.
  }
 ```
 
+
 ## Internals
 
 The `template` of a row, see the `editable-item` parent, is picked up and
@@ -131,6 +134,7 @@ direct styling and method binding from within the element that actually contains
 the `editable-list`.
 
 [1]:https://www.polymer-project.org/2.0/docs/about_20
+
 
 ## License
 
