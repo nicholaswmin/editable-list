@@ -134,4 +134,4 @@ the `editable-list`.
 
 ## License
 
-Read "LICENSE" file in root directory
+Read "LICENSE.md" file in root directory
