@@ -19,8 +19,7 @@ The following markup creates the list displayed above.
   }
 
   .item {
-    display: block;
-    float: left;
+    display: inline-block;
     width: 25%;
     padding: 0.35em;
   }
