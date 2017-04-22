@@ -9,7 +9,12 @@
 
 ## The markup
 
-The following markup creates the list displayed above.
+There's 2 elements which you need to use:
+
+- `<editable-list>`, the element itself contains headers, rows
+- `<editable-item>`, the repeated row
+
+For example, the following markup creates the list displayed above:
 
 ```html
 <style is="custom-style">
