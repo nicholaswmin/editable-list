@@ -15,6 +15,10 @@
 
     <test-fixture id="BasicTestFixture">
       <template>
+        <!-- Testing <x-element> (which contains `<editable-list>`), instead
+        of just `<editable-list>` in order to test behavior when
+        `<editable-list>` is contained in a host element, i.e does it propagate
+        data changes and observer firings to host? etc... -->
         <x-element></x-element>
       </template>
     </test-fixture>
