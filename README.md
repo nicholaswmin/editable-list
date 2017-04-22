@@ -9,10 +9,21 @@
 
 ## The markup
 
-The following markup creates the list displayed above.
+There's 2 elements which you need to use:
+
+- `<editable-list>`, the element itself which contains headers & rows
+- `<editable-item>`, the repeated row
+
+For example, the following markup creates the list displayed above:
 
 ```html
+<link rel="import" href="bower_components/editable-list.html">
+<link rel="import" href="bower_components/editable-item.html">
+
+
 <style is="custom-style">
+  /* You can style headers and/or row content with regular CSS */
+
   editable-item {
     display: flex;
     align-items: center;
@@ -46,6 +57,9 @@ The following markup creates the list displayed above.
     </editable-item>
   </template>
 </editable-list>
+
+<!-- Where `aFuncInHostElement() can be a function in the host element that
+contains this <editable-list>` -->
 ```
 
 
@@ -69,23 +83,25 @@ $ npm test
 ```
 
 
-## The good stuff
+## Why?
 
-It's flexible. You can easily change the DOM of each row, apply CSS to it
-from the containing element & call functions of the containing element.
+Because it uses the [Light DOM][2] to declare headers/rows markup. This
+makes it very flexible.
 
-Nevertheless, the Shadow DOM encapsulation principles apply as usual.
+Just declare your headers and/or the DOM of each row in HTML,
+apply CSS to them from the host element & call functions of the host element.
+
+The generic stuff are taken care off internally, i.e the delete row buttons,
+add new row button, general CRUD functionality and some very generic list CSS.
+The Shadow DOM encapsulation principles apply as usual.
 
 
-## Passing Data
+## Passing Initial Data
 
 Accepts an object as `data` that looks like this:
 
-> Note that the supplied `data` is 2-way data bound. Inline editing of rows
-will reflect the changes to the supplied object and the observer firings will
-propagate as usual to the host element.
-
 ```javascript
+ // `<editable-list data="{{data}}">...`
  data = {
    // Rows are added here.
    contents: [
@@ -111,11 +127,15 @@ propagate as usual to the host element.
  }
 ```
 
+> Note that the supplied `data` is 2-way data bound. Inline editing of rows
+will reflect the changes to the supplied object and the observer firings will
+propagate as usual to the host element.
 
-## Internals
 
-The `template` of a row, see the `editable-item` parent, is picked up and
-appended as the child of a `dom-repeat` inside the element.
+## How it works internally
+
+The `template` of a row, see the `editable-item` immediate parent, is picked up
+and appended as the child of a `dom-repeat` that resides inside the element.
 
 This results internally to this:
 
@@ -132,9 +152,9 @@ thus allowing
 direct styling and method binding from within the element that actually contains
 the `editable-list`.
 
-[1]:https://www.polymer-project.org/2.0/docs/about_20
-
-
 ## License
 
 Read "LICENSE.md" file in root directory
+
+[1]:https://www.polymer-project.org/2.0/docs/about_20
+[2]:https://www.polymer-project.org/2.0/docs/devguide/shadow-dom
