@@ -1,10 +1,5 @@
 <link rel="import" href="bower_components/polymer/polymer-element.html">
-
-<link rel="import" href="bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="bower_components/paper-input/paper-input.html">
-<link rel="import" href="bower_components/paper-checkbox/paper-checkbox.html">
-<link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html">
 
 <link rel="import" href="editable-list.html">
 <link rel="import" href="editable-item.html">
@@ -30,18 +25,19 @@
     <editable-list data="{{data}}">
       <header slot="header">Country</header>
       <header slot="header">City</header>
-      <header slot="header">Verified</header>
+      <header slot="header">Post Code</header>
       <template>
         <editable-item item="{{item}}">
           <paper-input class="item" value="{{item.country}}" no-label-float></paper-input>
           <paper-input class="item" value="{{item.city}}" no-label-float></paper-input>
-          <paper-checkbox class="item" checked="{{item.verified}}"></paper-checkbox>
-          <paper-icon-button
+          <paper-input class="item" value="{{item.postCode}}" no-label-float></paper-input>
+          <button
             slot="actions"
             class="attachment-btn"
             icon="attachment"
             on-click="auxButtonPressed">
-          </paper-icon-button>
+            Action Button 2
+          </button>
         </editable-item>
       </template>
     </editable-list>
@@ -65,13 +61,13 @@
                     id: 1,
                     country: "United Kingdom",
                     city: "London",
-                    verified: true
+                    postCode: "W2 6DR"
                   },
                   {
                     id: 2,
                     country: "China",
                     city: "Beijing",
-                    verified: false
+                    postCode: "600 801"
                   }
                 ],
                 deletedRows: []
