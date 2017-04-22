@@ -11,13 +11,19 @@
 
 There's 2 elements which you need to use:
 
-- `<editable-list>`, the element itself contains headers, rows
+- `<editable-list>`, the element itself which contains headers & rows
 - `<editable-item>`, the repeated row
 
 For example, the following markup creates the list displayed above:
 
 ```html
+<link rel="import" href="bower_components/editable-list.html">
+<link rel="import" href="bower_components/editable-item.html">
+
+
 <style is="custom-style">
+  /* You can style headers and/or row content with regular CSS */
+
   editable-item {
     display: flex;
     align-items: center;
@@ -51,6 +57,9 @@ For example, the following markup creates the list displayed above:
     </editable-item>
   </template>
 </editable-list>
+
+<!-- Where `aFuncInHostElement() can be a function in the host element that
+contains this <editable-list>` -->
 ```
 
 
