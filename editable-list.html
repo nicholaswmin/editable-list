@@ -105,6 +105,7 @@ CRUD list in Polymer 2.x
       constructor() {
         super();
         this.addEventListener("delete-row", this._deleteRow);
+        this._idGenerator = this._generateId();
       }
 
       connectedCallback() {
@@ -117,7 +118,7 @@ CRUD list in Polymer 2.x
 
       _addRow() {
         this.push("data.contents", {
-          id: `newRow-${this._getRandomId()}`
+          id: `newRow-${this._idGenerator.next().value}`
         });
       }
 
@@ -134,10 +135,12 @@ CRUD list in Polymer 2.x
         })
       }
 
-      _getRandomId() {
-        const min = 10000000000;
-        const max = 99999999999;
-        return Math.floor(Math.random() * (max - min + 1)) + min;
+      * _generateId() {
+        let i = 0;
+
+        while(true) {
+          yield ++i;
+        }
       }
 
       _isNewRow(id) {
